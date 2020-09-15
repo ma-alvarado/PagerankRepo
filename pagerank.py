@@ -9,7 +9,6 @@ import math
 import torch
 import gzip
 import csv
-
 import logging
 
 
@@ -103,7 +102,7 @@ class WebGraph():
             v = torch.ones(n)
 
         else:
-            v = torch.zeros(n)
+            v = torch.zeros(n) 
             # FIXME: your code goes here
         
         v_sum = torch.sum(v)
@@ -121,7 +120,7 @@ class WebGraph():
         You will have to compute the $a$ vector and implement Equation 5.1 from "Deeper Inside Pagerank."
         '''
         with torch.no_grad():
-            n = self.P.shape[0]
+            n = self.P.shape[0]  #dimensions of P matrix
 
             # create variables if none given
             if v is None:
