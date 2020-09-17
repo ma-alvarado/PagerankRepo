@@ -133,11 +133,41 @@ class WebGraph():
                 x0 = torch.unsqueeze(x0,1)
             x0 /= torch.norm(x0)
 
-            # main loop
-            # FIXME: your code goes here
-            x = x0.squeeze()
+            #implementation of the power method
+            #according to Equation 5.1:
+            #alpha*x^((k-1)*T)*self.P + (alpha*x^((k-1)*T)*alpha + (1-alpha))*v^T
+            
+            
+            #Creating initial x
+            x=x0
 
-            return x
+            #Creating alpha variable and assigning functionality
+            a = torch.zeros(n)
+            row_sums = torch.sparse.sum(self.P,1)
+            for i in range(n):
+                #Properties (3) in Textbook: The row sums of (I - alpha*P_bar) are 1 - alpha
+                #So, if the row sums of (I - alpha*P_bar) are equal to zero, alpha must be 1)
+                if row_sums[i] == 0:
+                    a[i] = 1
+
+            for k in range(0, max_iterations):
+                x_prev = x
+                alpha_x = alpha * x_prev.t()
+
+                #lefthandside -> everything left of first plus
+                lefthandside = torch.sparse.mm(self.P.t(), alpha_x.t()).t()
+                
+                #righthandside -> everything right of first plus 
+                righthandside = (alpha_x * a + (1-alpha))*v.t()
+                
+                #combining both sides
+                x = (lefthandside + righthandside).t()
+
+                if torch.norm(x - x_prev) < epsilon:
+                    break
+
+
+            return x.squeeze()
 
 
     def search(self, pi, query='', max_results=10):
@@ -203,9 +233,7 @@ def url_satisfies_query(url, query):
                 return False
     return satisfies
 
-print('works')
 if __name__=='__main__':
-    print('works')
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('--data', required=True)
