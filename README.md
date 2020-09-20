@@ -21,7 +21,7 @@ INFO:root:rank=5 pagerank=8.9347e-02 url=1
 ```
 
 **Part 2:**
-Using the `--search_query` feature, which takes a string as a parameter, the program returns all urls that match the query string sorted according to their pagerank.
+Using the `--search_query` feature, which takes a string as a parameter, the program returns all urls that match the query string sorted, according to their pagerank.
 Essentially, this gives the most important pages on the blog related to the query.
 
 ```
@@ -104,7 +104,7 @@ INFO:root:rank=8 pagerank=1.5597e+00 url=www.lawfareblog.com/summary-david-holme
 INFO:root:rank=9 pagerank=9.1265e-01 url=www.lawfareblog.com/events
 ```
 
-In the case above, we have removed the blog's most popular article (www.lawfareblog.com/snowden-revelations).
+As seen in the output, this last command removed the blog's most popular article (www.lawfareblog.com/snowden-revelations).
 The blog editors believe that Snowden's revelations about NSA spying are so important that they link to the article on every single webpage in the domain,
 and out "anti-spam" `--filter-ratio` argument removed this article from the list.
 
@@ -178,7 +178,7 @@ There is a tradeoff between quality answers and algorithmic runtime.
 
 **Part 1:**
 Using the `--personalization_vector_query` option will result in webpages being deemed "important" if other related websites also find them so. 
-Using the `--search_query` option, on the other hand, will see classify "important" websites as those deemed so by ANY other website.
+Using the `--search_query` option, on the other hand, will classify "important" websites as those deemed so by ANY other website.
 
 Each, therefore, will give different results.
 Below is a demonstration.
@@ -256,7 +256,7 @@ INFO:root:rank=8 pagerank=1.1794e-02 url=www.lawfareblog.com/fractured-terrorism
 INFO:root:rank=9 pagerank=1.1794e-02 url=www.lawfareblog.com/chinas-advance-antarctic
 ```
 
-`japan`:
+`japan`
 ```
 $ python3 pagerank.py --data=./lawfareblog.csv.gz --filter_ratio=0.2 --personalization_vector_query='japan' --search_query='-japan'
 INFO:root:rank=0 pagerank=1.4824e-01 url=www.lawfareblog.com/water-wars-disjointed-operations-south-china-sea
@@ -270,7 +270,7 @@ INFO:root:rank=7 pagerank=4.1869e-02 url=www.lawfareblog.com/frankenstein-200
 INFO:root:rank=8 pagerank=4.1869e-02 url=www.lawfareblog.com/irony-white-house-warriors
 INFO:root:rank=9 pagerank=4.1869e-02 url=www.lawfareblog.com/partisan-politics-and-federal-law-enforcement-promise-and-corruption-reconstruction
 ```
-`apple`:
+`apple`
 ```
 $ python3 pagerank.py --data=./lawfareblog.csv.gz --filter_ratio=0.2 --personalization_vector_query='apple' --search_query='-apple'
 INFO:root:rank=0 pagerank=3.8882e-01 url=www.lawfareblog.com/thoughtful-response-going-dark-and-child-pornography-issue
